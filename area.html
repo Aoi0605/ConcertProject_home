@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>座位圖</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .seating-chart {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .stage {
+            width: 200px;
+            height: 50px;
+            background-color: #FF5722;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            border-radius: 5px;
+        }
+        .section {
+            position: absolute;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+        .section:hover {
+            transform: scale(1.05);
+        }
+        .section-a { width: 150px; height: 200px; background-color: #4CAF50; top: 100px; left: 325px; }
+        .section-b { width: 100px; height: 200px; background-color: #9C27B0; top: 100px; left: 200px; }
+        .section-c { width: 100px; height: 200px; background-color: #E91E63; top: 100px; right: 200px; }
+        .section-d { width: 500px; height: 100px; background-color: #FFC107; bottom: 120px; left: 150px; border-radius: 250px 250px 0 0; }
+        .section-e { width: 600px; height: 80px; background-color: #FF9800; bottom: 20px; left: 100px; border-radius: 300px 300px 0 0; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .seats {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .seat-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="seating-chart">
+        <div class="stage">舞台 STAGE</div>
+        <div class="section section-a" onclick="showSeats('A')">A區</div>
+        <div class="section section-b" onclick="showSeats('B')">B區</div>
+        <div class="section section-c" onclick="showSeats('C')">C區</div>
+        <div class="section section-d" onclick="showSeats('D')">D區</div>
+        <div class="section section-e" onclick="showSeats('E')">E區</div>
+    </div>
+
+    <div id="seatModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="seatContainer" class="seats"></div>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("seatModal");
+        var span = document.getElementsByClassName("close")[0];
+
+        function showSeats(section) {
+            var modalTitle = document.getElementById("modalTitle");
+            var seatContainer = document.getElementById("seatContainer");
+            modalTitle.innerText = section + "區座位";
+            seatContainer.innerHTML = '';
+            
+            let rows, cols;
+            switch(section) {
+                case 'A':
+                    rows = 3; cols = 4;
+                    break;
+                case 'B':
+                case 'C':
+                    rows = 2; cols = 4;
+                    break;
+                case 'D':
+                    createSpecialSeats(seatContainer, 'D', [8, 10]);
+                    modal.style.display = "block";
+                    return;
+                case 'E':
+                    createSpecialSeats(seatContainer, 'E', [12, 14]);
+                    modal.style.display = "block";
+                    return;
+            }
+            
+            for (let i = 0; i < rows; i++) {
+                let row = document.createElement("div");
+                row.className = "seat-row";
+                for (let j = 0; j < cols; j++) {
+                    let seat = document.createElement("div");
+                    seat.className = "seat";
+                    seat.innerText = section + (i*cols + j + 1);
+                    row.appendChild(seat);
+                }
+                seatContainer.appendChild(row);
+            }
+            
+            modal.style.display = "block";
+        }
+
+        function createSpecialSeats(container, section, rowSeats) {
+            rowSeats.forEach((seats, index) => {
+                let row = document.createElement("div");
+                row.className = "seat-row";
+                for (let i = 0; i < seats; i++) {
+                    let seat = document.createElement("div");
+                    seat.className = "seat";
+                    seat.innerText = section + (index + 1) + "-" + (i + 1);
+                    row.appendChild(seat);
+                }
+                container.appendChild(row);
+            });
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
