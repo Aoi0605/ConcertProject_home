@@ -1,0 +1,106 @@
+/* 組件的主要背景樣式 */
+.bodyDiv {
+    height: 700px;
+    background-image: url('../assets/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+/* 購票資訊區塊的樣式 */
+.ticketSection {
+    margin-bottom: 40px;
+}
+
+.ticketSection h2 {
+    color: white;
+    text-align: center;
+}
+
+.ticketList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ticketList a {
+    color: #00aced;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+/* 最新消息區塊的樣式 */
+.newsSection {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+.newsSection h2 {
+    color: white;
+    text-align: center;
+}
+
+.newsSlider {
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none; /* 隱藏滾動條 */
+}
+
+.newsItem {
+    min-width: 300px;
+    margin-right: 20px;
+}
+
+/* 統一圖片大小及顯示方式 */
+.newsItem img {
+    width: 300px;      /* 設置統一的寬度 */
+    height: 200px;     /* 設置統一的高度 */
+    object-fit: cover; /* 使圖片按比例填滿框，必要時會裁剪 */
+    border-radius: 10px;
+}
+
+.newsItem p {
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}
+/* 媒體查詢：適用於螢幕寬度小於 850px 的情況，調整區塊佈局 */
+@media screen and (max-width: 850px) {
+    .ticketSection h2,
+    .newsSection h2 {
+        font-size: 24px;
+    }
+    .newsItem img {
+        width: 250px;
+        height: 150px;
+    }
+}
+
+/* 媒體查詢：適用於螢幕寬度小於 550px 的情況，進一步調整區塊佈局 */
+@media screen and (max-width: 550px) {
+    .ticketSection h2,
+    .newsSection h2 {
+        font-size: 20px;
+    }
+    .newsItem img {
+        width: 200px;
+        height: 120px;
+    }
+}
+
+/* 媒體查詢：適用於螢幕寬度小於 400px 的情況，調整文字大小 */
+@media screen and (max-width: 400px) {
+    .ticketSection h2,
+    .newsSection h2 {
+        font-size: 18px;
+    }
+    .newsItem img {
+        width: 150px;
+        height: 100px;
+    }
+}
+
