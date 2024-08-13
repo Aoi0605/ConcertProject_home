@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './header.module.css';
 import search_icon from '../assets/search.png';
 import sing_icon from '../assets/sing.png';
-
 
 const Header = () => {
     return (
@@ -23,13 +22,16 @@ const Header = () => {
                 <input type="text" placeholder='Search'/>
                 <img src={search_icon} alt=""/>
             </div>
-            <div class="user-actions">
-                <a href="/jsp/login" class="btn btn-outline-secondary">👤 MY ACCOUNT</a>
-                <a href="#" class="btn btn-outline-secondary ml-2">🛒 CART</a>
+
+            {/* User Actions: CART 和 MY ACCOUNT */}
+            <div className={styles['user-actions']}>
+                <a href=" " className="btn btn-outline-secondary ml-2">🛒 CART</a>
+                <a href=" " className="btn btn-outline-secondary">👤 MY ACCOUNT</a>
             </div>
         </div>
     );
 };
 
 export default Header;
+
 
