@@ -36,8 +36,9 @@ ul li {
     display: flex;
     align-items: center;
     background: #ffffff;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 50px;
+    margin-right: 10%;
 }
 
 /* search-box input: 設定搜尋框輸入欄的樣式 */
@@ -61,6 +62,15 @@ ul li {
     width: 20px;
     cursor: pointer;
 }
+
+.user-actions a {
+    margin-right: 10px; /* CART 和 MY ACCOUNT 之間的間隔 */
+}
+
+.user-actions a:last-child {
+    margin-right: 0; /* 最後一個元素不需要右邊距 */
+}
+
 /* 媒體查詢：適用於螢幕寬度小於 850px 的情況，調整導航列字體大小 */
 @media screen and (max-width: 850px) {
     ul li {
